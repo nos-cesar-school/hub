@@ -212,7 +212,7 @@ A meta é **WCAG 2.2 nível AA**, inclusive todos os critérios aplicáveis dos 
 
 ## Colaboração
 
-O trabalho ocorre em branches próprias e Pull Requests. Consulte [`CONTRIBUTING.md`](CONTRIBUTING.md) para o fluxo de branches, commits e rulesets recomendado. As proteções do GitHub e o CI ainda precisam ser configurados; não há deploy automático neste pacote.
+O trabalho ocorre em branches próprias e Pull Requests. Consulte [`CONTRIBUTING.md`](CONTRIBUTING.md) para o fluxo de branches, commits e rulesets ativos. O CI e o deploy automático ainda não estão configurados neste pacote.
 
 ## Licença
 

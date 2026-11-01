@@ -1,6 +1,6 @@
 # Contribuição
 
-Este documento define o fluxo proposto de branches, commits e Pull Requests do Hub do NOS. Ele complementa o escopo em `PRODUCT.md`, a direção visual em `DESIGN.md` e os requisitos de acessibilidade em `docs/accessibility/WCAG-2.2-AA.md`.
+Este documento define o fluxo de branches, commits, Pull Requests e rulesets do Hub do NOS. Ele complementa o escopo em `PRODUCT.md`, a direção visual em `DESIGN.md` e os requisitos de acessibilidade em `docs/accessibility/WCAG-2.2-AA.md`.
 
 ## Branches permanentes
 
@@ -10,7 +10,7 @@ Este documento define o fluxo proposto de branches, commits e Pull Requests do H
 | `staging` | Candidata para revisão e validação antes da homologação | `develop` |
 | `main` | Versão homologada | `staging` |
 
-Não fazer push diretamente para `develop`, `staging` ou `main`. As mudanças entram por Pull Request. A branch `develop` já é a padrão no GitHub; confirmar essa configuração após a inicialização do clone local.
+Não fazer push diretamente para `develop`, `staging` ou `main`. As mudanças entram por Pull Request. `develop` é a branch padrão do repositório.
 
 ## Branches de trabalho
 
@@ -39,6 +39,20 @@ Fluxo normal:
 6. Promover `staging` para `main` por Pull Request após a aprovação da versão.
 
 O GitHub não restringe a branch de origem do Pull Request com as regrasets básicas; conferir manualmente que as promoções seguem `develop → staging → main`.
+
+### Atualizar uma branch de trabalho
+
+Antes de abrir ou atualizar uma PR, buscar as mudanças mais recentes de `develop` e rebasear a branch de trabalho sobre elas:
+
+```bash
+git fetch origin
+git switch feat/minha-tarefa
+git rebase origin/develop
+```
+
+Resolver eventuais conflitos, executar os testes e continuar com `git rebase --continue` (ou cancelar com `git rebase --abort`). Se a branch já foi enviada ao GitHub, atualizar **somente a branch de trabalho própria** com `git push --force-with-lease`. Não usar force push em `develop`, `staging` ou `main`. Se outras pessoas compartilham a branch, combinar antes do rebase ou integrar `origin/develop` com merge.
+
+O rebase local serve para atualizar uma branch de trabalho; ele não é o método **Rebase and merge** do botão de PR no GitHub, que está desativado para este repositório.
 
 ## Hotfix e rollback
 
@@ -95,16 +109,16 @@ Para mudanças incompatíveis, usar `!` após o tipo/escopo e explicar `BREAKING
 
 ## Rulesets do GitHub
 
-Criar rulesets ativos para `develop`, `staging` e `main`. Aplicar a cada um:
+Estão ativos dois rulesets no repositório:
 
-- exigir Pull Request antes do merge;
-- exigir uma aprovação;
-- descartar aprovações antigas quando novos commits forem enviados;
-- exigir resolução das conversas de revisão;
-- bloquear force push e exclusão da branch;
-- deixar a lista de bypass vazia, inclusive para administradores.
+| Ruleset | Branches-alvo | Método de merge exigido |
+|---|---|---|
+| `protect-develop-squash` | `develop` | Squash |
+| `protect-staging-main-merge` | `staging`, `main` | Merge commit |
 
-Regras adicionais por branch:
+Ambos exigem Pull Request, uma aprovação, descarte de aprovações antigas após novos commits, resolução das conversas, bloqueio de force push e exclusão da branch, sem bypass. O ruleset de `develop` permite apenas squash; o de `staging`/`main`, apenas merge commit.
+
+Configurações globais de Pull Request: **Merge commits** e **Squash** habilitados; **Rebase** desabilitado. As regrasets continuam sendo a fonte de verdade para o método permitido em cada branch.
 
 | Branch | Origem esperada do PR | Validação |
 |---|---|---|
@@ -112,7 +126,7 @@ Regras adicionais por branch:
 | `staging` | `develop` | Build, testes e validação da versão candidata |
 | `main` | `staging` | Build, testes e aprovação da versão para homologação |
 
-**Estado atual:** as branches existem, mas ainda não há rulesets, proteção de branch ou workflow de CI configurados. Não marcar checks como obrigatórios antes de existir um workflow que os publique. Quando o CI estiver disponível, exigir `npm run build`, `npm run test` e `npm run test:a11y` como checks para os três alvos.
+**CI:** ainda não há workflow do GitHub Actions. Por isso, status checks não são obrigatórios nas rulesets. Quando o CI for configurado, exigir os checks com os nomes que o workflow publicar; ele deve executar `npm run build`, `npm run test` e `npm run test:a11y`.
 
 ## Antes de abrir um Pull Request
 
