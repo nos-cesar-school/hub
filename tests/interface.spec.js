@@ -28,15 +28,13 @@ test('menu móvel abre sem JavaScript e os estilos continuam carregados', async 
   await expect(nav).toBeHidden();
 });
 
-test('contato apresenta mockup identificado como não funcional', async ({ page }) => {
+test('canais públicos apontam para o GitHub oficial e não exibem formulário fictício', async ({ page }) => {
   await page.goto('/');
-  await expect(page.locator('.site-nav a[href="#contato"]')).toHaveCount(1);
-  await expect(page.locator('#contato')).toBeVisible();
-  await expect(page.getByLabel('Nome')).toBeVisible();
-  await expect(page.getByLabel('E-mail')).toBeVisible();
-  await expect(page.getByLabel('Mensagem')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Envio indisponível no protótipo' })).toBeDisabled();
-  await expect(page.getByText('os dados não são enviados nem armazenados.')).toBeVisible();
+  const github = 'https://github.com/nos-cesar-school';
+  await expect(page.locator('.site-nav a.nav-github')).toHaveAttribute('href', github);
+  await expect(page.getByRole('heading', { name: 'Acompanhe o NOS no GitHub.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Visitar o GitHub do NOS' })).toHaveAttribute('href', github);
+  await expect(page.locator('form, input, textarea')).toHaveCount(0);
 });
 
 test('sem rolagem horizontal indevida', async ({ page }) => {

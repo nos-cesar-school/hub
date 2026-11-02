@@ -66,7 +66,7 @@ O primeiro MVP do Hub Virtual tem como objetivo disponibilizar uma landing page 
 
 **Critério de aceite:** todos os canais publicados são oficiais, funcionais e aprovados. Não são exibidos formulários fictícios nem inscrições não confirmadas.
 
-> **Divergência atual:** a página ainda contém um formulário demonstrativo não funcional. Por isso, US05 permanece aberta e esse mockup não atende ao critério de aceite acima.
+> **Canal de contato:** ainda não definido. US05.2 permanece pendente; a página não exibe formulário nem inscrições fictícias.
 
 ### US06 — Utilizar o Hub em diferentes dispositivos
 
