@@ -84,6 +84,39 @@ test('tablet em paisagem mantém navegação completa e hero adaptado', async ({
   expect(layout.split(' ').length).toBe(2);
 });
 
+test('hero mantém a chamada visível em desktop baixo e tablet em paisagem', async ({ page }) => {
+  for (const viewport of [
+    { width: 1920, height: 867 },
+    { width: 1366, height: 650 },
+    { width: 844, height: 390 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const cta = await page.getByRole('link', { name: 'Conheça o Núcleo' }).boundingBox();
+    expect(cta, `CTA ausente em ${viewport.width}×${viewport.height}`).not.toBeNull();
+    expect(cta.y + cta.height, `CTA fora da primeira dobra em ${viewport.width}×${viewport.height}`).toBeLessThanOrEqual(viewport.height);
+    if (viewport.width === 844) {
+      const core = await page.locator('.diagram-core').boundingBox();
+      for (const node of await page.locator('.node').all()) {
+        const box = await node.boundingBox();
+        const overlapsCore = box.x < core.x + core.width && box.x + box.width > core.x && box.y < core.y + core.height && box.y + box.height > core.y;
+        expect(overlapsCore, `${await node.innerText()} sobrepõe o núcleo no tablet em paisagem`).toBe(false);
+      }
+    }
+  }
+});
+
+test('reduz movimentos conforme a preferência do sistema', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  const motion = await page.locator('.hero-art .diagram-lines path').evaluate((element) => {
+    const styles = getComputedStyle(element);
+    return { animationName: styles.animationName, transitionDuration: parseFloat(styles.transitionDuration) };
+  });
+  expect(motion.animationName).toBe('none');
+  expect(motion.transitionDuration).toBeLessThan(0.001);
+});
+
 test('links internos apontam para destinos existentes', async ({ page }) => {
   await page.goto('/');
   const hashes = await page.locator('a[href^="#"]').evaluateAll(links => links.map(link => link.getAttribute('href')));

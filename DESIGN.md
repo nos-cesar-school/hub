@@ -6,10 +6,10 @@ O site deve parecer uma **comunidade universitária construindo software aberta 
 ## Tokens aplicados
 - Acento: `#ff4d00` para pequenos pontos visuais. CTAs usam `#a93100` com texto branco (6,72:1); hover usa `#9f2d00` (7,37:1).
 - Laranja para **texto sobre branco**: `#a93100` (mais escuro; confirmar contraste medido em cada contexto).
-- Tinta: `#242424`. Texto secundário: `#454545`. Superfície: branco e `#f8f8f7`.
-- Bordas: `#d6dce2`. Tinta laranja suave: `#ffe6d8`.
+- Tinta: `#242424`. Texto secundário: `#454545`. Superfície: papel claro `#fdf8ee` e papel envelhecido `#f4ede1`.
+- Bordas: `#d8d0c4`. Tinta laranja suave: `#ffe6d8`.
 - Tipografia: Inter ou fontes system UI disponíveis; monospace do sistema para rótulos técnicos. **Não incluir a fonte comercial Suisse**.
-- Botões em pílula; cards com raio de 20px; microdetalhes com linhas finas.
+- Botões em pílula; cards com raio de 24px; microdetalhes com linhas finas.
 
 ## Composição e narrativa
 1. **Hero**: título de impacto, proposta clara e diagrama autoral de colaboração entre três equipes, não quatro.
@@ -19,10 +19,12 @@ O site deve parecer uma **comunidade universitária construindo software aberta 
 5. **Como trabalhamos**: quatro etapas de processo; não promete método técnico obrigatório.
 6. **Comunidade e acompanhamento**: governança sem nomes inventados, chamada para GitHub.
 
+O hero adapta tipografia, espaçamento e diagrama tanto à largura quanto à altura da tela; em retrato, a chamada precede o diagrama, e em paisagem curta os nós mantêm distância do núcleo central.
+
 ## Animações
-- Preferir hover discreto de cards, transições CSS curtas e movimento com propósito.
+- Preferir hover discreto de cards, transições CSS curtas e movimento com propósito. O diagrama autoral do hero é o momento animado principal.
 - Não ocultar informações essenciais com animação dependente de JS/IntersectionObserver.
-- Respeitar `prefers-reduced-motion` e evitar scroll-jacking e parallax pesado.
+- Respeitar `prefers-reduced-motion`, removendo animações e transições, e evitar scroll-jacking e parallax pesado.
 
 ## Regras de revisão visual
 - Apontar problemas observáveis antes de propor alterações.
