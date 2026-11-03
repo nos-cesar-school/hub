@@ -1,0 +1,32 @@
+# Dependências e builds
+node_modules/
+dist/
+dist-ssr/
+.vite/
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# Segurança e dados locais
+.env
+.env.*
+!.env.example
+*.local
+*.log
+
+# IDE, sistema operacional
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Instalações locais de agentes e Impeccable — NÃO versionar
+.agents/
+.claude/
+.codex/
+.hermes/
+.pi/
+.opencode/
+.impeccable/
