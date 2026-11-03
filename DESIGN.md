@@ -22,8 +22,8 @@ O site deve parecer uma **comunidade universitária construindo software aberta 
 O hero adapta tipografia, espaçamento e diagrama tanto à largura quanto à altura da tela; em retrato, a chamada precede o diagrama, e em paisagem curta os nós mantêm distância do núcleo central.
 
 ## Animações
-- Preferir hover discreto de cards, transições CSS curtas e movimento com propósito. O diagrama autoral do hero é o momento animado principal.
-- Não ocultar informações essenciais com animação dependente de JS/IntersectionObserver.
+- Preferir hover discreto de cards, entradas escalonadas suaves e movimento com propósito. O diagrama do hero e a conexão entre as etapas são os momentos animados principais.
+- Cards e textos permanecem visíveis sem JavaScript; entradas de seção apenas acrescentam movimento e nunca ocultam informações essenciais.
 - Respeitar `prefers-reduced-motion`, removendo animações e transições, e evitar scroll-jacking e parallax pesado.
 
 ## Regras de revisão visual

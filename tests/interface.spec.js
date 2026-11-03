@@ -26,6 +26,9 @@ test('menu móvel abre sem JavaScript e os estilos continuam carregados', async 
   await expect(nav).toBeVisible();
   await toggle.click();
   await expect(nav).toBeHidden();
+  await expect(page.locator('.team-card')).toHaveCount(3);
+  await expect(page.locator('.team-card').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Entender' })).toBeVisible();
 });
 
 test('canais públicos apontam para o GitHub oficial e não exibem formulário fictício', async ({ page }) => {
@@ -115,6 +118,35 @@ test('reduz movimentos conforme a preferência do sistema', async ({ page }) => 
   });
   expect(motion.animationName).toBe('none');
   expect(motion.transitionDuration).toBeLessThan(0.001);
+  const cards = await page.locator('.team-card, .workflow-grid > li').evaluateAll((elements) => elements.map((element) => getComputedStyle(element).animationName));
+  expect(cards.every((name) => name === 'none')).toBe(true);
+});
+
+test('etapas desenham a conexão ao entrar na tela sem ocultar os cards', async ({ page }) => {
+  for (const viewport of [{ width: 1440, height: 900 }, { width: 768, height: 1024 }, { width: 390, height: 844 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    const workflow = page.locator('.workflow-grid');
+    await workflow.scrollIntoViewIfNeeded();
+    await expect(workflow).toHaveClass(/is-in-view/);
+
+    const connector = await workflow.locator('li').first().evaluate((element) => {
+      const styles = getComputedStyle(element, '::after');
+      return { display: styles.display, animationName: styles.animationName };
+    });
+    if (viewport.width > 540) {
+      expect(connector.display).toBe('block');
+      expect(connector.animationName).toBe('workflow-connect');
+    } else {
+      expect(connector.display).toBe('none');
+    }
+
+    const cardStates = await workflow.locator('li').evaluateAll((elements) => elements.map((element) => ({
+      animationName: getComputedStyle(element).animationName,
+      opacity: getComputedStyle(element).opacity,
+    })));
+    expect(cardStates.every((state) => state.animationName === 'card-arrive' && state.opacity === '1')).toBe(true);
+  }
 });
 
 test('links internos apontam para destinos existentes', async ({ page }) => {
