@@ -126,7 +126,7 @@ Configurações globais de Pull Request: **Merge commits** e **Squash** habilita
 | `staging` | `develop` | Build, testes e validação da versão candidata |
 | `main` | `staging` | Build, testes e aprovação da versão para homologação |
 
-**CI:** ainda não há workflow do GitHub Actions. Por isso, status checks não são obrigatórios nas rulesets. Quando o CI for configurado, exigir os checks com os nomes que o workflow publicar; ele deve executar `npm run build`, `npm run test` e `npm run test:a11y`.
+**CI:** o workflow `.github/workflows/ci.yml` executa o check **`Build, UI & WCAG A11y`** (`npm run build`, `npm run test:ui` e `npm run test:a11y` com Playwright + Chromium) em Pull Requests e pushes para `develop`, `staging` e `main`. Esse status check pode ser marcado como obrigatório nas rulesets do repositório.
 
 ## Antes de abrir um Pull Request
 
