@@ -246,11 +246,44 @@
   line-height: 1.55;
 }
 
+/* Página 404 Institucional */
+.not-found-section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: calc(100svh - 170px);
+  display: flex;
+  align-items: center;
+}
+
+.not-found-layout {
+  max-width: var(--content-width);
+}
+
+.not-found-layout h1 {
+  max-width: 18ch;
+  margin-bottom: 16px;
+}
+
+.not-found-shortcuts {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.not-found-shortcuts .next-card h2 {
+  margin: 4px 0 6px;
+  font-size: 1.3rem;
+  letter-spacing: -0.03em;
+}
+
 @media (max-width: 960px) {
   .page-hero-layout,
   .pillars-grid,
   .ecosystem-grid,
-  .subareas-grid-three {
+  .subareas-grid-three,
+  .not-found-shortcuts {
     grid-template-columns: 1fr;
   }
   .values-grid {

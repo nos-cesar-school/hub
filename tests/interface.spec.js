@@ -7,6 +7,7 @@ const allRoutes = [
   '/equipes/desenvolvimento/',
   '/equipes/design/',
   '/equipes/ciberseguranca/',
+  '/404.html',
 ];
 
 test('estrutura e seções principais da landing page', async ({ page }) => {
@@ -307,4 +308,39 @@ test('link de pular conteúdo funciona por teclado', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Pular para o conteúdo principal' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/#conteudo$/);
+});
+
+test('jornada multipágina navega entre Home, Sobre, Liderança, Equipes e Breadcrumbs', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: /Conhecer missão, valores e propósito/ }).click();
+  await expect(page).toHaveURL(/\/sobre\/$/);
+  await expect(page.locator('.site-nav a[aria-current="page"]')).toHaveText('Sobre');
+
+  await page.getByRole('link', { name: /Acessar Gestão do Núcleo/ }).click();
+  await expect(page).toHaveURL(/\/gestao\/$/);
+  await expect(page.locator('.site-nav a[aria-current="page"]')).toHaveText('Liderança');
+
+  await page.locator('.team-card', { hasText: 'Desenvolvimento' }).getByRole('link', { name: /Ver liderança e equipe/ }).click();
+  await expect(page).toHaveURL(/\/equipes\/desenvolvimento\/$/);
+  await expect(page.locator('.breadcrumb [aria-current="page"]')).toHaveText('Desenvolvimento');
+
+  await page.locator('.next-card', { hasText: 'Design' }).click();
+  await expect(page).toHaveURL(/\/equipes\/design\/$/);
+
+  await page.locator('.breadcrumb').getByRole('link', { name: 'Início' }).click();
+  await expect(page.getByRole('heading', { level: 1, name: /Da ideia ao código/ })).toBeVisible();
+});
+
+test('metadados Open Graph e página 404 institucional estão presentes e funcionais', async ({ page }) => {
+  for (const route of ['/', '/sobre/', '/gestao/', '/equipes/desenvolvimento/', '/equipes/design/', '/equipes/ciberseguranca/']) {
+    await page.goto(route);
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /.+/);
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute('content', /.+/);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /nos-mark\.webp$/);
+  }
+
+  await page.goto('/404.html');
+  await expect(page.getByRole('heading', { level: 1, name: /Esta página não foi encontrada/ })).toBeVisible();
+  await page.getByRole('link', { name: /Voltar para o início/ }).click();
+  await expect(page.getByRole('heading', { level: 1, name: /Da ideia ao código/ })).toBeVisible();
 });
