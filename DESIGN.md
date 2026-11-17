@@ -5,21 +5,24 @@ O site deve parecer uma **comunidade universitária construindo software aberta 
 
 ## Tokens aplicados
 - Acento: `#ff4d00` para pequenos pontos visuais. CTAs usam `#a93100` com texto branco (6,72:1); hover usa `#9f2d00` (7,37:1).
-- Laranja para **texto sobre branco**: `#a93100` (mais escuro; confirmar contraste medido em cada contexto).
-- Tinta: `#242424`. Texto secundário: `#454545`. Superfície: papel claro `#fdf8ee` e papel envelhecido `#f4ede1`.
-- Bordas: `#d8d0c4`. Tinta laranja suave: `#ffe6d8`.
+- Laranja para **texto sobre branco e papel claro**: `#a93100` (confirmar contraste medido em cada contexto).
+- Tinta: `#242424`. Texto secundário: `#454545`. Texto auxiliar: `#5c5c5c`. Superfície: papel claro `#fdf8ee`, superfície elevada `#fffcf6` e papel envelhecido `#f4ede1`.
+- Bordas decorativas: `#d8d0c4`. Bordas de controles interativos e campos de formulário: `#766e64` (>= 4,2:1 sobre papel claro/envelhecido para atender WCAG 1.4.11). Tinta laranja suave: `#ffe6d8`.
 - Tipografia: Inter ou fontes system UI disponíveis; monospace do sistema para rótulos técnicos. **Não incluir a fonte comercial Suisse**.
-- Botões em pílula; cards com raio de 24px; microdetalhes com linhas finas.
+- Botões em pílula; cards com raio de 24px; avatares circulares com aro pontilhado técnico; ícones de contato circulares com alvo de 44×44px.
 
-## Composição e narrativa
-1. **Hero**: título de impacto, proposta clara e diagrama autoral de colaboração entre três equipes, não quatro.
-2. **Sobre**: bloco editorial com texto institucional verificável.
-3. **Equipes**: três cards ricos, equilibrados, com títulos e funções completas.
-4. **Por que participar**: pequena janela de código conceitual + benefícios concretos.
-5. **Como trabalhamos**: quatro etapas de processo; não promete método técnico obrigatório.
-6. **Comunidade e acompanhamento**: governança sem nomes inventados, chamada para GitHub.
-
-O hero adapta tipografia, espaçamento e diagrama tanto à largura quanto à altura da tela; em retrato, a chamada precede o diagrama, e em paisagem curta os nós mantêm distância do núcleo central.
+## Composição e arquitetura multipágina
+1. **Landing Page (`/`)**:
+   - **Hero**: etiqueta institucional, título de impacto, proposta clara e diagrama autoral de colaboração entre três equipes técnicas (Design, Desenvolvimento e Cibersegurança).
+   - **Sobre (síntese)**: bloco editorial com destaque para Missão e Propósito e chamada para `/sobre/`.
+   - **Equipes**: três cards ricos com subtítulos oficiais, tags de subáreas e links para as páginas de cada frente.
+   - **Por que participar**: janela conceitual de código + benefícios concretos.
+   - **Como trabalhamos**: quatro etapas de processo conectadas visualmente.
+   - **Governança**: síntese da Gestão do Núcleo com chamada para `/gestao/`.
+   - **Contato e GitHub**: chamada para o GitHub oficial + formulário de contato institucional com nota transparente sobre integração futura (ex.: NocoDB).
+2. **Sobre (`/sobre/`)**: manifesto institucional expandido com *O que é o NOS*, *Missão*, *Propósito*, grade de *6 blocos de Valores* e articulação com CESAR, CISSA e CESAR School.
+3. **Gestão do Núcleo (`/gestao/`)**: *Presidência*, *Vice-presidência*, *Lideranças de Departamento* e grade "Conheça a Gestão".
+4. **Páginas de Departamento (`/equipes/desenvolvimento/`, `/equipes/design/`, `/equipes/ciberseguranca/`)**: cabeçalho com breadcrumb, subtítulo e descrição oficiais, cards de *Áreas de atuação* e grade "Conheça a equipe" (com foto circular, papel, descrição e ícones de E-mail, LinkedIn e GitHub).
 
 ## Animações
 - Preferir hover discreto de cards, entradas escalonadas suaves e movimento com propósito. O diagrama do hero e a conexão entre as etapas são os momentos animados principais.
