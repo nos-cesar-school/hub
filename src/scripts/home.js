@@ -5,16 +5,16 @@ import { renderComite, renderLiderancas } from './governanca.js';
 
 // ---------- splash ----------
 // Abre com o logo sendo desenhado e depois leva o logo até o cabeçalho.
-// Não repete quando a pessoa volta para a home a partir de outra página do site.
+// Só aparece na primeira visita: depois a home abre direto.
 (() => {
   const splash = document.getElementById('splash');
   const html = document.documentElement;
-  let vindoDoSite = false;
+  let jaViu = false;
   try {
-    const ref = new URL(document.referrer);
-    vindoDoSite = ref.origin === location.origin && ref.pathname !== location.pathname;
-  } catch { /* sem referrer */ }
-  if (!splash || vindoDoSite) return;
+    jaViu = localStorage.getItem('nos-abertura-vista') === '1';
+    localStorage.setItem('nos-abertura-vista', '1');
+  } catch { /* sem armazenamento: mostra a abertura */ }
+  if (!splash || jaViu) return;
 
   // com "reduzir movimento" ligado, o logo aparece parado e a tela some mais rápido
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;

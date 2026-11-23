@@ -219,18 +219,26 @@ test('página de integrantes: comitê, diagrama, filtro e perfil', async ({ page
   await expect(page.locator('#leads .gp')).toHaveCount(3);
   await expect(page.locator('#venn .person')).toHaveCount(12);
 
+  await expect(page.locator('#people .pcard')).toHaveCount(14);
+  await expect(page.locator('#peopleCount')).toHaveText('14 pessoas no Núcleo');
+
   const gabriel = page.locator('#venn').getByRole('button', { name: /^Gabriel\b/ });
   await gabriel.click();
-  await expect(page.locator('#profile h3')).toHaveText('Gabriel');
   await expect(gabriel).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#p-gabriel')).toHaveClass(/hl/);
+  await expect(page.locator('#p-gabriel')).toBeInViewport();
 
   await page.getByRole('button', { name: 'Idinaldo Presidente' }).click();
-  await expect(page.locator('#profile')).toContainText('Comitê Geral · Presidente');
+  await expect(page.locator('#p-idinaldo')).toContainText('Comitê Geral · Presidente');
+  await expect(page.locator('#p-idinaldo')).toHaveClass(/hl/);
 
   await page.locator('#filters').getByRole('button', { name: 'Design UX/UI' }).click();
   await expect(page.locator('#venn .person.off')).toHaveCount(9);
+  await expect(page.locator('#people .pcard:visible')).toHaveCount(3);
+  await expect(page.locator('#peopleCount')).toHaveText('3 pessoas em Design UX/UI');
   await page.locator('#filters').getByRole('button', { name: 'Infraestrutura' }).click();
   await expect(page.locator('#venn .venn-note')).toBeVisible();
+  await expect(page.locator('#people .pcard:visible')).toHaveCount(0);
 });
 
 test('jornada multipágina navega entre Home e Integrantes', async ({ page }) => {
@@ -241,7 +249,7 @@ test('jornada multipágina navega entre Home e Integrantes', async ({ page }) =>
 
   await page.locator('header .brand').click();
   await expect(page.getByRole('heading', { level: 1, name: /Da ideia ao código/ })).toBeVisible();
-  // ao voltar de outra página do site, a abertura animada não se repete
+  // a abertura animada só aparece na primeira visita
   await expect(page.locator('#splash')).toBeHidden();
 });
 

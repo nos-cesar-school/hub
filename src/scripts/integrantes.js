@@ -3,11 +3,12 @@ import { COMITE, F, FRENTES, PESSOAS, TBC, VPOS, ZONAS } from './dados.js';
 import { renderComite, renderLiderancas } from './governanca.js';
 
 const venn = document.getElementById('venn');
-const profile = document.getElementById('profile');
+const peopleEl = document.getElementById('people');
+const countEl = document.getElementById('peopleCount');
 const filters = document.getElementById('filters');
 const comiteEl = document.getElementById('comite');
 let filtro = 'todas';
-let selecionado = 'laura';
+let selecionado = null;
 let vertical = false;
 const todos = [...PESSOAS, ...COMITE];
 
@@ -15,7 +16,7 @@ renderComite(comiteEl, { interativo: true });
 renderLiderancas(document.getElementById('leads'));
 comiteEl.addEventListener('click', (e) => {
   const b = e.target.closest('.gp');
-  if (b) select(b.dataset.id, true);
+  if (b) select(b.dataset.id);
 });
 
 filters.innerHTML = [
@@ -51,7 +52,7 @@ function renderVenn() {
 }
 venn.addEventListener('click', (e) => {
   const b = e.target.closest('.person');
-  if (b) select(b.dataset.id, true);
+  if (b) select(b.dataset.id);
 });
 
 function applyFilter() {
@@ -67,35 +68,55 @@ function applyFilter() {
   const note = venn.querySelector('.venn-note');
   note.hidden = !vazio;
   if (vazio) note.querySelector('p').innerHTML = `Integrantes de ${F[filtro].nome}: ${TBC}`;
+  filterCards();
 }
 
-function select(id, fromClick) {
+// ---------- cards ----------
+const reduzir = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const frentesDe = (p) => p.cargo
+  ? `<span>Comitê Geral · ${p.cargo}</span>`
+  : p.frentes.map((f) => `<span style="--c:var(--f-${f})"><i aria-hidden="true"></i>${F[f].nome}</span>`).join('');
+peopleEl.innerHTML = [...COMITE, ...PESSOAS].map((p) => `
+  <article class="pcard" id="p-${p.id}" data-id="${p.id}" tabindex="-1" aria-labelledby="p-${p.id}-nome">
+    <div class="pc-top">
+      <div class="photo" role="img" aria-label="Foto de ${p.nome} (a enviar)">${p.nome[0]}</div>
+      <div>
+        <h3 id="p-${p.id}-nome">${p.nome}</h3>
+        <div class="meta">${p.curso ?? '<span class="tbc">CURSO</span>'}</div>
+      </div>
+    </div>
+    <div class="meta">${frentesDe(p)}</div>
+    <p class="bio">${p.bio ?? '<span class="tbc">MINI BIO</span>'}</p>
+    <p class="int"><b>Interesses:</b> ${p.interesses ?? '<span class="tbc">INTERESSES</span>'}</p>
+  </article>`).join('');
+
+function filterCards() {
+  let n = 0;
+  peopleEl.querySelectorAll('.pcard').forEach((card) => {
+    const p = todos.find((x) => x.id === card.dataset.id);
+    // com filtro de frente, o Comitê sai da lista (ele aparece no bloco de cima)
+    const show = filtro === 'todas' || p.frentes.includes(filtro);
+    card.hidden = !show;
+    if (show) n += 1;
+  });
+  countEl.textContent = filtro === 'todas'
+    ? `${n} pessoas no Núcleo`
+    : n ? `${n} ${n === 1 ? 'pessoa' : 'pessoas'} em ${F[filtro].nome}` : '';
+}
+
+// tocar numa pessoa (no diagrama ou no Comitê) leva até o card dela e destaca
+function select(id) {
   selecionado = id;
   venn.querySelectorAll('.person').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === id)));
   comiteEl.querySelectorAll('.gp').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === id)));
-  const p = todos.find((x) => x.id === id);
-  const frentes = p.cargo
-    ? `<span>Comitê Geral · ${p.cargo}</span>`
-    : p.frentes.map((f) => `<span style="--c:var(--f-${f})"><i aria-hidden="true"></i>${F[f].nome}</span>`).join('');
-  profile.innerHTML = `
-    <div class="photo" role="img" aria-label="Foto de ${p.nome} (a enviar)">FOTO</div>
-    <div>
-      <h3>${p.nome}</h3>
-      <div class="meta">${p.curso ?? '<span class="tbc">CURSO</span>'}</div>
-      <div class="meta" style="margin-top:8px">${frentes}</div>
-      <p class="bio">${p.bio ?? '<span class="tbc">MINI BIO</span>'}</p>
-      <p class="int"><b>Interesses:</b> ${p.interesses ?? '<span class="tbc">INTERESSES</span>'}</p>
-    </div>`;
-  // mostra o perfil se ele estiver fora da tela, para o clique não parecer sem efeito
-  if (fromClick) {
-    const r = profile.getBoundingClientRect();
-    if (r.top < 80 || r.bottom > innerHeight) {
-      profile.parentElement.scrollIntoView({
-        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-        block: 'nearest',
-      });
-    }
+  peopleEl.querySelectorAll('.pcard').forEach((c) => c.classList.toggle('hl', c.dataset.id === id));
+  const card = document.getElementById(`p-${id}`);
+  if (card.hidden) {
+    // a pessoa está fora do filtro atual: volta para "Todas" para o card aparecer
+    filters.querySelector('[data-f="todas"]').click();
   }
+  card.scrollIntoView({ behavior: reduzir() ? 'auto' : 'smooth', block: 'center' });
+  card.focus({ preventScroll: true });
 }
 
 const mq = matchMedia('(max-width: 900px)');
@@ -105,4 +126,3 @@ function layout() {
 }
 mq.addEventListener('change', layout);
 layout();
-select(selecionado);
