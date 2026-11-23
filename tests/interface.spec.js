@@ -248,7 +248,7 @@ test('jornada multipágina navega entre Home e Integrantes', async ({ page }) =>
   await expect(page.locator('nav a[aria-current="page"]')).toHaveText('Integrantes');
 
   await page.locator('header .brand').click();
-  await expect(page.getByRole('heading', { level: 1, name: /Da ideia ao código/ })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /A gente aprende construindo/ })).toBeVisible();
   // a abertura animada só aparece na primeira visita
   await expect(page.locator('#splash')).toBeHidden();
 });
@@ -264,5 +264,5 @@ test('metadados Open Graph e página 404 institucional estão presentes e funcio
   await page.goto('/404.html');
   await expect(page.getByRole('heading', { level: 1, name: /Esta página não foi encontrada/ })).toBeVisible();
   await page.getByRole('link', { name: /Voltar para o início/ }).click();
-  await expect(page.getByRole('heading', { level: 1, name: /Da ideia ao código/ })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /A gente aprende construindo/ })).toBeVisible();
 });

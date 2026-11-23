@@ -41,7 +41,7 @@ const nocodbEndpoint = resolveNocodbEndpoint(import.meta.env.VITE_NOCODB_FORM_EN
 if (nocodbEndpoint && contactNote) {
   if (contactBadge) contactBadge.hidden = true;
   contactNote.innerHTML =
-    '<strong>Privacidade (LGPD):</strong> os dados informados serão utilizados exclusivamente para retorno institucional do Núcleo Open Source.';
+    'Usamos seus dados só para responder a mensagem, conforme a LGPD.';
 }
 
 if (contactForm instanceof HTMLFormElement && contactFeedback instanceof HTMLElement) {
@@ -103,7 +103,7 @@ if (contactForm instanceof HTMLFormElement && contactFeedback instanceof HTMLEle
       renderFeedback(
         'info',
         'Aguarde alguns segundos',
-        'Sua mensagem anterior acabou de ser enviada. Aguarde alguns instantes antes de realizar um novo envio.',
+        'Sua última mensagem acabou de ser enviada. Espere um pouco antes de mandar outra.',
       );
       return;
     }
@@ -133,8 +133,8 @@ if (contactForm instanceof HTMLFormElement && contactFeedback instanceof HTMLEle
     if (!nocodbEndpoint) {
       renderFeedback(
         'info',
-        'Integração em homologação institucional',
-        'A interface do formulário já está pronta, mas o endereço final do servidor de mensagens ainda não foi configurado. Nenhum dado foi enviado. Enquanto isso, acompanhe o Núcleo pelo GitHub oficial.',
+        'O formulário ainda não está ligado',
+        'Nenhum dado foi enviado. Enquanto isso, você pode acompanhar o Núcleo pelo GitHub.',
       );
       return;
     }
@@ -169,13 +169,13 @@ if (contactForm instanceof HTMLFormElement && contactFeedback instanceof HTMLEle
       renderFeedback(
         'success',
         'Mensagem enviada com sucesso',
-        'Recebemos seu contato na base institucional do Núcleo Open Source. Nossa equipe retornará pelo e-mail informado.',
+        'Vamos responder no e-mail que você informou.',
       );
     } catch {
       renderFeedback(
         'error',
         'Não foi possível enviar no momento',
-        'Houve uma falha de comunicação com o serviço de mensagens. Tente novamente em instantes ou acesse nossa organização no GitHub.',
+        'Tente de novo em alguns minutos. Seus dados continuam no formulário.',
       );
     } finally {
       if (submitButton instanceof HTMLButtonElement) {

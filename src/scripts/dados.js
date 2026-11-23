@@ -2,11 +2,11 @@
 export const TBC = '<span class="tbc">A CONFIRMAR</span>';
 
 export const FRENTES = [
-  { id: 'dev', nome: 'Desenvolvimento', desc: 'Transforma necessidades em interfaces, serviços e integrações. Implementa, testa e mantém o software para que as soluções possam evoluir.', fit: 'você gosta de colocar ideias para funcionar em código.' },
-  { id: 'ciber', nome: 'Cibersegurança', desc: 'Incorpora segurança e privacidade desde o início. Identifica riscos e protege sistemas e dados.', fit: 'você gosta de pensar no que pode dar errado antes que dê.' },
-  { id: 'design', nome: 'Design UX/UI', desc: 'Investiga necessidades, estrutura jornadas e cria experiências claras, úteis e acessíveis.', fit: 'você gosta de entender pessoas e transformar isso em interface.' },
-  { id: 'infra', nome: 'Infraestrutura', desc: 'Cuida de hospedagem, servidores e automação, junto com Cibersegurança, para que tudo vá ao ar com segurança.', fit: 'você gosta de entender o que sustenta um sistema por trás da tela.' },
-  { id: 'gestao', nome: 'Gestão', desc: 'Organiza planejamento, documentação e acompanhamento dos projetos, e conecta as equipes.', fit: 'você gosta de fazer as coisas andarem e as pessoas se entenderem.' },
+  { id: 'dev', nome: 'Desenvolvimento', desc: 'Escreve o código dos projetos, das telas às integrações, e mantém funcionando o que já está no ar.', fit: 'você gosta de colocar ideias para funcionar em código.' },
+  { id: 'ciber', nome: 'Cibersegurança', desc: 'Pensa na segurança e na privacidade desde o começo do projeto e procura falhas antes que virem problema.', fit: 'você gosta de pensar no que pode dar errado antes que dê.' },
+  { id: 'design', nome: 'Design UX/UI', desc: 'Conversa com quem vai usar, desenha as telas e testa se dá para entender e usar, inclusive com acessibilidade.', fit: 'você gosta de entender pessoas e transformar isso em interface.' },
+  { id: 'infra', nome: 'Infraestrutura', desc: 'Coloca os projetos no ar e cuida dos servidores, junto com o time de Cibersegurança.', fit: 'você gosta de entender o que sustenta um sistema por trás da tela.' },
+  { id: 'gestao', nome: 'Gestão', desc: 'Organiza o calendário, as tarefas e a documentação, e ajuda as equipes a conversarem.', fit: 'você gosta de fazer as coisas andarem e as pessoas se entenderem.' },
 ];
 export const F = Object.fromEntries(FRENTES.map((f) => [f.id, f]));
 
