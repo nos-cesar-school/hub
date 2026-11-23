@@ -3,6 +3,7 @@ import AxeBuilder from '@axe-core/playwright';
 
 const routes = [
   { path: '/', label: 'Home' },
+  { path: '/integrantes/', label: 'Integrantes' },
   { path: '/sobre/', label: 'Sobre' },
   { path: '/gestao/', label: 'Gestão' },
   { path: '/equipes/desenvolvimento/', label: 'Desenvolvimento' },
@@ -68,7 +69,7 @@ test('WCAG 2.5.8: todos os controles interativos visíveis atendem ao tamanho m�
     await page.goto(route.path);
     const undersized = await page.evaluate(() => {
       const selector =
-        'header .brand, header .menu-toggle, header .site-nav > a, main a[href], main button, main input:not([tabindex="-1"]), main select, main textarea, footer a[href]';
+        'header .brand, header .menu-toggle, header .site-nav > a, header .icon-btn, header nav > a, main a[href], main button, main input:not([tabindex="-1"]), main select, main textarea, footer a[href]';
       const issues = [];
 
       for (const el of document.querySelectorAll(selector)) {
@@ -106,7 +107,7 @@ test('WCAG 2.4.7 e 2.4.11: navegação por Tab mantém foco visível e não enco
       if (!active || active === document.body) return null;
       const styles = getComputedStyle(active);
       const rect = active.getBoundingClientRect();
-      const header = document.querySelector('.site-header');
+      const header = document.querySelector('.site-header, header.nav');
       const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
       const insideMainOrFooter = Boolean(active.closest('main, footer'));
       return {

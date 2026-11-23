@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Integrantes | Núcleo Open Source</title>
+<meta name="description" content="Comitê Geral, lideranças e integrantes de cada frente do Núcleo Open Source da CESAR School.">
+<meta name="theme-color" content="#110d1f">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Núcleo Open Source — CESAR School">
+<meta property="og:title" content="Integrantes | Núcleo Open Source">
+<meta property="og:description" content="Comitê Geral, lideranças e integrantes de cada frente do Núcleo Open Source da CESAR School.">
+<meta property="og:image" content="/images/nos-mark.webp">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="../images/nos-mark.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../src/styles/nos.css">
+<script>
+  // aplica o tema salvo antes de desenhar a página, para não piscar
+  try { if (localStorage.getItem('nos-theme') === 'light') document.documentElement.dataset.theme = 'light'; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo principal</a>
+<header class="nav" id="topo">
+  <div class="wrap">
+    <a class="brand" href="../">
+      <svg viewBox="-8 -8 202 72" aria-hidden="true"><use href="#nos-mark"/></svg>
+      <span>Núcleo Open Source<br>CESAR School</span>
+    </a>
+    <nav id="menu" aria-label="Navegação principal">
+      <a href="../#sobre">Sobre</a>
+      <a href="../#frentes">Frentes</a>
+      <a href="../#projetos">Projetos</a>
+      <a href="./" aria-current="page">Integrantes</a>
+      <a href="../#contato">Contato</a>
+      <a href="https://github.com/nos-cesar-school" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+    <button class="icon-btn" id="themeBtn" type="button" aria-label="Mudar para modo claro">Claro</button>
+    <button class="icon-btn" id="menuBtn" type="button" aria-label="Menu principal" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+</header>
+
+<!-- Logo redesenhado a partir da arte da equipe (provisório): troque pelo arquivo oficial quando sair. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="nos-mark" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 54 V28 A26.9 21 0 0 1 58.75 28 V40 Q58.75 53 72 53 H171.5 A11.5 11.5 0 0 0 171.5 30 H139 A10 10 0 0 1 139 10 H182.75" stroke="var(--ink)" stroke-width="8"/>
+      <ellipse cx="93.75" cy="28" rx="25" ry="16.5" stroke="var(--ink)" stroke-width="8"/>
+      <circle cx="113" cy="-1" r="5.2" fill="var(--accent)"/>
+    </g>
+  </defs>
+</svg>
+
+
+
+<main id="conteudo">
+  <section class="page-head">
+    <div class="wrap">
+      <h1>Quem faz o NOS</h1>
+      <p class="lead">Estudantes de diferentes cursos da CESAR School, organizados em cinco frentes. Quem atua em duas frentes aparece no encontro entre elas.</p>
+    </div>
+  </section>
+
+  <section class="page-team" aria-label="Integrantes">
+    <div class="wrap">
+      <div class="gov">
+        <div class="gov-block">
+          <h2>Comitê Geral</h2>
+          <p>Organiza as iniciativas, as atividades e a comunidade.</p>
+          <div class="gov-people" id="comite"></div>
+        </div>
+        <div class="gov-block">
+          <h2>Lideranças</h2>
+          <p>Acompanham cada frente e conectam as equipes.</p>
+          <div class="gov-people" id="leads"></div>
+        </div>
+      </div>
+      <h2 class="team-h">Frentes</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filtrar integrantes por frente"></div>
+      <p class="venn-cap">Quem atua em duas frentes aparece no encontro entre elas. Selecione uma pessoa para ver o perfil logo abaixo.</p>
+      <div class="venn-wrap">
+        <div class="venn" id="venn"></div>
+      </div>
+      <div class="people-below">
+        <article class="profile" id="profile" aria-live="polite"></article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Núcleo Open Source, CESAR School</span>
+    <span>Construído pelos próprios integrantes, em código aberto.</span>
+  </div>
+</footer>
+
+<script type="module" src="../src/scripts/integrantes.js"></script>
+</body>
+</html>

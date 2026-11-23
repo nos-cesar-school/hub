@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(rootDir, 'index.html'),
+        integrantes: resolve(rootDir, 'integrantes/index.html'),
         sobre: resolve(rootDir, 'sobre/index.html'),
         gestao: resolve(rootDir, 'gestao/index.html'),
         desenvolvimento: resolve(rootDir, 'equipes/desenvolvimento/index.html'),
