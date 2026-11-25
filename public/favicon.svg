@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <style>
+    .o { stroke: #110d1f; }
+    @media (prefers-color-scheme: dark) { .o { stroke: #f8f1ea; } }
+  </style>
+  <ellipse class="o" cx="29" cy="37" rx="23.5" ry="15.5" fill="none" stroke-width="10"/>
+  <circle cx="51" cy="8" r="7.5" fill="#ef6f2e"/>
+</svg>
